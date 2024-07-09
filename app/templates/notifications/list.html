@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Notifications</h2>
+<a href="{{ url_for('notifications.create_notification') }}" class="btn btn-primary">Create Notification</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>User ID</th>
+			<th>Message</th>
+			<th>Created At</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for notification in notifications %}
+		<tr>
+			<td>{{ notification.id }}</td>
+			<td>{{ notification.user_id }}</td>
+			<td>{{ notification.message }}</td>
+			<td>{{ notification.created_at }}</td>
+			<td>
+				<a href="{{ url_for('notifications.detail_notification', id=notification.id) }}"
+					class="btn btn-info">View</a>
+				<a href="{{ url_for('notifications.update_notification', id=notification.id) }}"
+					class="btn btn-warning">Edit</a>
+				<form action="{{ url_for('notifications.delete_notification', id=notification.id) }}" method="POST"
+					style="display:inline;">
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

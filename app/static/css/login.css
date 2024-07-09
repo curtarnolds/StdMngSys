@@ -1,0 +1,22 @@
+.image,
+.image * {
+	box-sizing: border-box;
+}
+
+.image {
+	height: 1024px;
+	position: relative;
+	overflow: hidden;
+}
+
+.banner {
+	background: linear-gradient(to left,
+			rgba(17, 17, 17, 0.25),
+			rgba(17, 17, 17, 0.25));
+	width: 860px;
+	height: 1024px;
+	position: absolute;
+	left: -70px;
+	top: 0px;
+	object-fit: cover;
+}

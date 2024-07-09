@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Update Grade</h2>
+<form method="POST">
+	<div class="form-group">
+		<label for="enrollment_id">Enrollment ID</label>
+		<input type="number" class="form-control" id="enrollment_id" name="enrollment_id"
+			value="{{ grade.enrollment_id }}" required>
+	</div>
+	<div class="form-group">
+		<label for="grade">Grade</label>
+		<input type="text" class="form-control" id="grade" name="grade" value="{{ grade.grade }}" required>
+	</div>
+	<button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Courses</h2>
+<a href="{{ url_for('courses.create_course') }}" class="btn btn-primary">Create Course</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Credits</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for course in courses %}
+		<tr>
+			<td>{{ course.id }}</td>
+			<td>{{ course.course_name }}</td>
+			<td>{{ course.course_description }}</td>
+			<td>{{ course.credits }}</td>
+			<td>
+				<a href="{{ url_for('courses.detail_course', id=course.id) }}" class="btn btn-info">View</a>
+				<a href="{{ url_for('courses.update_course', id=course.id) }}" class="btn btn-warning">Edit</a>
+				<form action="{{ url_for('courses.delete_course', id=course.id) }}" method="POST"
+					style="display:inline;">
+					<button type="submit" class="btn btn-danger">Delete</button>
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

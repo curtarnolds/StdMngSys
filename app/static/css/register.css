@@ -1,0 +1,258 @@
+._6,
+._6 * {
+	box-sizing: border-box;
+}
+
+._6 {
+	background: #ffffff;
+	height: 1024px;
+	position: relative;
+	overflow: hidden;
+}
+
+.image {
+	width: 720px;
+	height: 1024px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	overflow: hidden;
+}
+
+.bert-b-rh-nff-6-h-b-41-s-unsplash-1 {
+	background: linear-gradient(to left,
+			rgba(17, 17, 17, 0.25),
+			rgba(17, 17, 17, 0.25));
+	width: 860px;
+	height: 1024px;
+	position: absolute;
+	left: -70px;
+	top: 0px;
+	object-fit: cover;
+}
+
+.sign-in {
+	width: 720px;
+	height: 1024px;
+	position: absolute;
+	left: 720px;
+	top: 0px;
+	overflow: hidden;
+}
+
+.frame-312 {
+	display: flex;
+	flex-direction: column;
+	gap: 48px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	position: absolute;
+	left: 76px;
+	top: 179px;
+}
+
+.sign-in2 {
+	color: #333333;
+	text-align: left;
+	font-family: "Poppins-Medium", sans-serif;
+	font-size: 32px;
+	font-weight: 500;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.frame-311 {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	position: relative;
+}
+
+.text-field {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	width: 568px;
+	position: relative;
+}
+
+.frame-243 {
+	align-self: stretch;
+	flex-shrink: 0;
+	height: 27px;
+	position: relative;
+}
+
+.label {
+	color: #666666;
+	text-align: left;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+.text-field2 {
+	border-radius: 12px;
+	border-style: solid;
+	border-color: rgba(102, 102, 102, 0.35);
+	border-width: 1px;
+	align-self: stretch;
+	flex-shrink: 0;
+	height: 56px;
+	position: relative;
+	overflow: hidden;
+}
+
+.frame-286 {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-end;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	position: relative;
+}
+
+.password-hide-see {
+	position: absolute;
+	inset: 0;
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	right: 57.86px;
+	top: 3px;
+	overflow: hidden;
+}
+
+.group-1 {
+	width: 75.78%;
+	height: 66.65%;
+	position: absolute;
+	right: 12.08%;
+	left: 12.14%;
+	bottom: 16.64%;
+	top: 16.71%;
+	overflow: visible;
+}
+
+.hidden {
+	opacity: 100%;
+}
+
+.hide {
+	color: rgba(102, 102, 102, 0.8);
+	text-align: right;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	position: absolute;
+	right: 8.86px;
+	top: 0px;
+}
+
+.forget-your-password {
+	color: #111111;
+	text-align: right;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-decoration: underline;
+	position: relative;
+}
+
+.frame-349 {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	position: relative;
+}
+
+.button {
+	background: #111111;
+	border-radius: 32px;
+	opacity: 0.25;
+	flex-shrink: 0;
+	position: relative;
+	overflow: hidden;
+}
+
+.frame-276 {
+	display: flex;
+	flex-direction: row;
+	gap: 8px;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	left: calc(50% - 33.5px);
+	top: calc(50% - 15.5px);
+}
+
+.sign-up {
+	color: #ffffff;
+	text-align: center;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.have-an-account-login {
+	padding: 2px;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-shrink: 0;
+	position: relative;
+}
+
+.already-have-an-ccount-log-in {
+	text-align: left;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	position: relative;
+}
+
+.already-have-an-ccount-log-in-span {
+	color: #333333;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.already-have-an-ccount-log-in-span2 {
+	color: #666666;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.already-have-an-ccount-log-in-span3 {
+	color: #111111;
+	font-family: "Poppins-Regular", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	text-decoration: underline;
+}

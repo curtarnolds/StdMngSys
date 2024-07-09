@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Add Question</h2>
+<form method="POST">
+	<div class="form-group">
+		<label for="question_text">Question Text</label>
+		<input type="text" class="form-control" id="question_text" name="question_text" required>
+	</div>
+	<button type="submit" class="btn btn-primary">Add Question</button>
+</form>
+{% endblock %}

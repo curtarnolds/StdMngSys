@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Exam Details</h2>
+<p>ID: {{ exam.id }}</p>
+<p>Course ID: {{ exam.course_id }}</p>
+<p>Name: {{ exam.exam_name }}</p>
+<p>Date: {{ exam.exam_date }}</p>
+
+<h3>Questions</h3>
+<a href="{{ url_for('exams.create_question', exam_id=exam.id) }}" class="btn btn-primary">Add Question</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Question Text</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for question in questions %}
+		<tr>
+			<td>{{ question.id }}</td>
+			<td>{{ question.question_text }}</td>
+			<td>
+				<a href="{{ url_for('exams.create_answer', exam_id=exam.id, question_id=question.id) }}"
+					class="btn btn-info">Add Answer</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<a href="{{ url_for('exams.update_exam', id=exam.id) }}" class="btn btn-warning">Edit</a>
+<form action="{{ url_for('exams.delete_exam', id=exam.id) }}" method="POST" style="display:inline;">
+	<button type="submit" class="btn btn-danger">Delete</button>
+</form>
+{% endblock %}

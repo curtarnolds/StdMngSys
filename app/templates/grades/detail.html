@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Grade Details</h2>
+<p>ID: {{ grade.id }}</p>
+<p>Enrollment ID: {{ grade.enrollment_id }}</p>
+<p>Grade: {{ grade.grade }}</p>
+<a href="{{ url_for('grades.update_grade', id=grade.id) }}" class="btn btn-warning">Edit</a>
+<form action="{{ url_for('grades.delete_grade', id=grade.id) }}" method="POST" style="display:inline;">
+	<button type="submit" class="btn btn-danger">Delete</button>
+</form>
+{% endblock %}

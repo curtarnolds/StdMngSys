@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Create Exam</h2>
+<form method="POST">
+	<div class="form-group">
+		<label for="course_id">Course ID</label>
+		<input type="number" class="form-control" id="course_id" name="course_id" required>
+	</div>
+	<div class="form-group">
+		<label for="exam_name">Exam Name</label>
+		<input type="text" class="form-control" id="exam_name" name="exam_name" required>
+	</div>
+	<div class="form-group">
+		<label for="exam_date">Exam Date</label>
+		<input type="date" class="form-control" id="exam_date" name="exam_date" required>
+	</div>
+	<button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Student Details</h2>
+<p>ID: {{ student.id }}</p>
+<p>First Name: {{ student.first_name }}</p>
+<p>Last Name: {{ student.last_name }}</p>
+<p>Index Number: {{ student.student_index_number }}</p>
+<p>Date of Birth: {{ student.date_of_birth }}</p>
+<p>Gender: {{ student.gender }}</p>
+<p>Address: {{ student.address }}</p>
+<a href="{{ url_for('students.update_student', id=student.id) }}" class="btn btn-warning">Edit</a>
+<form action="{{ url_for('students.delete_student', id=student.id) }}" method="POST" style="display:inline;">
+	<button type="submit" class="btn btn-danger">Delete</button>
+</form>
+{% endblock %}

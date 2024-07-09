@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Teacher Dashboard</h2>
+<p>Welcome, {{ current_user.username }}! This is your teacher dashboard.</p>
+<ul>
+	<li><a href="{{ url_for('students.list_students') }}">Manage Students</a></li>
+	<li><a href="{{ url_for('courses.list_courses') }}">Manage Courses</a></li>
+	<li><a href="{{ url_for('grades.list_grades') }}">Manage Grades</a></li>
+	<li><a href="{{ url_for('exams.list_exams') }}">Manage Exams</a></li>
+</ul>
+{% endblock %}
