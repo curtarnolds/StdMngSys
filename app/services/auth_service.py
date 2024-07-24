@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from app.models import User
 from app import db
 
@@ -20,5 +20,6 @@ def login(username, password):
     return False
 
 
+@login_required
 def logout_current_user():
     logout_user()
