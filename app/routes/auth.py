@@ -40,3 +40,9 @@ def login():
         else:
             flash('Login unsuccessful. Please check email or password')
     return render_template('auth/login.html', form=user_login_form)
+
+
+@bp.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))

@@ -18,8 +18,3 @@ def user_login(username, password, remember):
         login_user(user, remember=remember)
         return True
     return False
-
-
-@login_required
-def logout_current_user():
-    logout_user()
