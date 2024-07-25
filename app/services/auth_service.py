@@ -12,10 +12,10 @@ def register_user(username, password, role, email):
     return user
 
 
-def login(username, password):
+def user_login(username, password, remember):
     user = User.query.filter_by(username=username).first()
     if user and check_password_hash(user.password_hash, password):
-        login_user(user, password)
+        login_user(user, remember=remember)
         return True
     return False
 
