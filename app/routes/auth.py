@@ -32,7 +32,7 @@ def login():
         return redirect(url_for("dashboard.dashboard"))
     user_login_form = UserLoginForm()
     if user_login_form.validate_on_submit():
-        login = user_login(username=user_login_form.username.data,
+        login = user_login(email=user_login_form.email.data,
                            password=user_login_form.password.data, remember=user_login_form.remember.data)
         if login:
             flash('Login successful!')

@@ -23,7 +23,7 @@ def create_app():
     login.init_app(app)
 
     # token = secrets.token_hex(16)
-    # session['csrf_token'] = token
+    # app.session['csrf_token'] = token
 
     from app.routes import auth, students, courses, grades, notifications, exams, main, dashboard
     app.register_blueprint(auth.bp)
