@@ -45,6 +45,13 @@
                         {{ form.submit(class='btn btn-primary') }}
                     </form>
                 </div>
+                <div class="no-account-signup mt-3">
+                    <div class="already-have-an">
+                        <span class="terms-of-service">Don't have an account?</span>
+                        <span class="by-continuing-you"></span>
+                        <a href="{{ url_for("auth.register") }}" class="log-in">Register</a>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

@@ -47,6 +47,7 @@ img {
 
 .sign-in-box {
 	display: flex;
+	flex-direction: column;
 	--tw-bg-opacity: 1;
 	background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 	justify-content: center;
@@ -66,4 +67,38 @@ img {
 	.sm\:w-\[500px\] {
 		width: 500px;
 	}
+}
+
+.no-account-signup * {
+	padding: 0;
+	margin: 0;
+}
+
+.no-account-signup {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	font-size: 16px;
+}
+
+.already-have-an {
+	position: relative;
+	color: inherit;
+	text-decoration: none;
+
+}
+
+.terms-of-service {
+	color: #333;
+}
+
+.by-continuing-you {
+	color: #666;
+}
+
+.log-in {
+	color: #111;
+	text-decoration: underline;
+	white-space: pre-wrap;
 }
