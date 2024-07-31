@@ -9,7 +9,7 @@ class UserRegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    role = RadioField('Role', validators=[DataRequired()], choices=[('Teacher', 'teacher'), ('Student', 'student')])
+    role = RadioField('Role', validators=[DataRequired()], choices=[('teacher', 'Teacher'), ('student', 'Student')], default='student')
     password = PasswordField('Enter Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
