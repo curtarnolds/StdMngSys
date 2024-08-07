@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/register.css') }}" />
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" />
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Avenir:wght@400&display=swap" />
+        <title>Register</title>
+    </head>
+    <body>
+        <div class="div">
+            {# djlint: off #}
+            <img class="image-icon"
+                 alt="Background Image"
+                 src="{{ url_for('static', filename='img/registration_backdrop.png') }}">
+            {# djlint: on #}
+            <div class="backdrop"></div>
+            <div class="sign-up-overlay">
+                <div class="content">
+                    <div class="frame-parent">
+                        <div class="logo-parent">
+                            <div class="logo"></div>
+                            <div class="unlimited-free-access-to-our-r-parent">
+                                <div class="unlimited-free-access-container">
+                                    <span class="unlimited-free-access-container1">
+                                        <p class="unlimited-free-access">Unlimited free access</p>
+                                        <p class="unlimited-free-access">to our resourses</p>
+                                    </span>
+                                </div>
+                                <div class="have-an-account-login">
+                                    <div class="already-have-an">Sign up to see more</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-parent">
+                            <div class="button">
+                                <div class="sign-up-wrapper">
+                                    <div class="already-have-an">Continue with email</div>
+                                </div>
+                            </div>
+                            <div class="social-media-signuplogin">
+                                <div class="social-media-logo-parent">
+                                    {# djlint: off #}
+                                    <img class="social-media-logo" alt="" src="{{ url_for('static', filename='ico/facebook_icon.svg') }}">
+                                    {# djlint: on #}
+                                    <a href="#" class="already-have-an">Continue with Facebook</a>
+                                </div>
+                            </div>
+                            <div class="social-media-signuplogin">
+                                <div class="social-media-logo-parent">
+                                    {# djlint: off #}
+                                    <img class="social-media-logo" alt="Facebook" src="{{ url_for('static', filename='ico/google_icon.svg') }}">
+                                    {# djlint: on #}
+                                    <div class="already-have-an">Continue with Google</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="link-text">
+                            <div class="already-have-an">
+                                <p class="unlimited-free-access">
+                                    <span class="by-continuing-you">By continuing, you agree to the</span>
+                                    <span class="terms-of-service">
+                                        <span class="privacy-policy">Terms of Service</span>
+                                    </span>
+                                    <span class="terms-of-service"></span>
+                                </p>
+                                <p class="unlimited-free-access">
+                                    <span class="by-continuing-you">and acknowledge you’ve read our</span>
+                                    <span class="privacy-policy">
+                                        <span class="privacy-policy1">Privacy Policy.</span>
+                                        <span class="by-continuing-you"></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="have-an-account-login1">
+                        <div class="already-have-an">
+                            <span class="terms-of-service">Have an account?</span>
+                            <span class="by-continuing-you"></span>
+                            <a href="{{ url_for("auth.login") }}" class="log-in">Log in</a>
+                        </div>
+                    </div>
+                </div>
+                {# djlint: off #}
+                <img class="icons" alt="" src="Icons.svg">
+                {# djlint: on #}
+            </div>
+        </div>
+    </body>
+</html>

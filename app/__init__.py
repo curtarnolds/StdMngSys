@@ -1,18 +1,18 @@
 '''App Initialiazation file'''
-from flask import Flask, session
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask_migrate import Migrate  # noqa
 from flask_login import LoginManager
-from app.services import errors
+from app.services import errors  # noqa
 from config import Config
-import secrets
-
+import secrets  # noqa
 
 
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 login.login_view = 'auth.login'
+
 
 def create_app():
     app = Flask(__name__)
@@ -39,6 +39,5 @@ def create_app():
     # @app.errorhandler(404)
     # def wrong_login(e):
     #     return 'Test', 404
-
 
     return app

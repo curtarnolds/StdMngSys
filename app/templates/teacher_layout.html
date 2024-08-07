@@ -9,8 +9,16 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet"
               href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <!-- Bulma CSS -->
         <link rel="stylesheet"
               href="{{ url_for('static', filename='css/bulma-prefixed.min.min.css') }}">
+        <link rel="stylesheet" href="style.css">
+        <!-- Custom CSS -->
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='css/teacher.css') }}">
+        <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/c8d042dfb0.js"
                 crossorigin="anonymous"></script>
     </head>
@@ -30,7 +38,8 @@
             <div class="bulma-navbar-menu">
                 <div class="bulma-navbar-start">
                     <div class="bulma-navbar-item bulma-has-dropdown bulma-is-hoverable">
-                        <a class="bulma-navbar-link" href="#">Students</a>
+                        <a class="bulma-navbar-link"
+                           href="{{ url_for("students.list_students") }}">Students</a>
                         <div class="bulma-navbar-dropdown">
                             <a class="bulma-navbar-item"
                                href="{{ url_for("students.list_students") }}">List Students</a>
@@ -39,7 +48,8 @@
                         </div>
                     </div>
                     <div class="bulma-navbar-item bulma-has-dropdown bulma-is-hoverable">
-                        <a class="bulma-navbar-link" href="#">Courses</a>
+                        <a class="bulma-navbar-link"
+                           href="{{ url_for("courses.list_courses") }}">Courses</a>
                         <div class="bulma-navbar-dropdown">
                             <a class="bulma-navbar-item"
                                href="{{ url_for("courses.list_courses") }}">List Courses</a>
@@ -47,15 +57,15 @@
                                href="{{ url_for("courses.create_course") }}">Add Course</a>
                         </div>
                     </div>
-                    <a class="bulma-navbar-item"
-                       href="{{ url_for("grades.list_grades") }}"
-                       aria-label="Grades">Grades</a>
-                    <a class="bulma-navbar-item"
-                       href="{{ url_for("notifications.list_notifications") }}"
-                       aria-label="Notifications">Notifications</a>
-                    <a class="bulma-navbar-item"
-                       href="{{ url_for("exams.list_exams") }}"
-                       aria-label="Exams">Exams</a>
+                    <a class="bulma-navbar-item" href="#shedule" aria-label="Schedule">Schedule</a>
+                    <a class="bulma-navbar-item" href="#feedback" aria-label="Feedback">Feedback</a>
+                    <div class="bulma-navbar-item bulma-has-dropdown bulma-is-hoverable">
+                        <a class="bulma-navbar-link" href="#exam" aria-label="Exams">Exams</a>
+                        <div class="bulma-navbar-dropdown">
+                            <a class="bulma-navbar-item" href="#exam">List Exams</a>
+                            <a class="bulma-navbar-item" href="#exam">Add Exam</a>
+                        </div>
+                    </div>
                     <div class="bulma-navbar-item">
                         <div class="bulma-field">
                             <form action="#" method="get" class="bulma-control bulma-has-icons-right">
@@ -88,25 +98,12 @@
                 </div>
             </div>
         </nav>
-        <div class="container">
-            {% block content %}
-            {% endblock content %}
-        </div>
-        <footer class="footer mt-auto py-3 bg-light">
-            <div class="container">
-                <span class="text-muted">© 2024 Student Management System</span>
+        {% block content %}
+        {% endblock content %}
+        <footer class="bulma-footer mt-auto py-3 bg-light">
+            <div class="bulma-container bulma-has-text-centered">
+                <span class="text-muted bulma-is-centered">© 2024 Student Management System</span>
             </div>
         </footer>
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        {# <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-                                                                                                                                                                                    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-                                                                                                                                                                                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script> #}
     </body>
 </html>

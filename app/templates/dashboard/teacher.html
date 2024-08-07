@@ -1,11 +1,136 @@
-{% extends 'layout.html' %}
+{% extends "teacher_layout.html" %}
 {% block content %}
-<h2>Teacher Dashboard</h2>
-<p>Welcome, {{ current_user.username }}! This is your teacher dashboard.</p>
-<ul>
-	<li><a href="{{ url_for('students.list_students') }}">Manage Students</a></li>
-	<li><a href="{{ url_for('courses.list_courses') }}">Manage Courses</a></li>
-	<li><a href="{{ url_for('grades.list_grades') }}">Manage Grades</a></li>
-	<li><a href="{{ url_for('exams.list_exams') }}">Manage Exams</a></li>
-</ul>
-{% endblock %}
+    <!--
+    <div class="bulma-container mt-6" height="100vh">
+        <div class="bulma-columns">
+            <aside id="schedule" class="bulma-message bulma-is-dark bulma-column bulma-is-one-fifth">
+                <header class="bulma-message-header">
+                    Schedule
+                </header>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nulla et ut, totam in est repudiandae animi eveniet, reprehenderit, dolor cupiditate velit minima.
+                </p>
+            </aside>
+            <div class="bulma-column bulma-is-three-fifths  bulma-is-fullheight">
+                <section id="performance" class="bulma-panel">
+                    <p class="bulma-panel-heading bulma-has-text-centered">
+                        Performance
+                    </p>
+                    <div class="bulma-panel-tabs">
+                        <a id="course" class="bulma-is-active">
+                            Course
+                        </a>
+                        <a id="class">
+                            Class
+                        </a>
+                        <a id="exams">
+                            Exams
+                        </a>
+                    </div>
+                    <canvas class="bulma-panel-block"></canvas>
+                </section>
+            </div>
+            <aside id="notifications" class="bulma-message bulma-is-info bulma-column bulma-is-one-fifth">
+                <header class="bulma-message-header">
+                    Notifications
+                </header>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem beatae libero mollitia iure voluptates natus voluptatibus exercitationem sapiente voluptatem laudantium similique ipsum iste deleniti nulla velit rem quasi magnam, explicabo distinctio, nisi fugiat aliquid a perspiciatis? Minima, obcaecati nihil distinctio cumque repellat explicabo.
+                </p>
+            </aside>
+        </div>
+    </div>
+-->
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <aside id="schedule" class="message is-dark column is-one-fifth box">
+                    <header class="message-header">
+                        <p>
+                            Schedule
+                        </p>
+                    </header>
+                    <div class="message-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                        nulla et ut, totam in est repudiandae animi eveniet,
+                        reprehenderit, dolor cupiditate velit minima.
+                    </div>
+                </aside>
+                <div id="performance" class="column is-three-fifths box">
+                    <nav class="panel">
+                        <p class="panel-heading">
+                            Performance
+                        </p>
+                    </nav>
+                    <div class="tabs is-boxed">
+                        <ul>
+                            <li class="is-active" data-tab="course">
+                                <a>Course</a>
+                            </li>
+                            <li data-tab="std-class">
+                                <a>Class</a>
+                            </li>
+                            <li data-tab="exams">
+                                <a>Exams</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="course" class="tab-content is-active">
+                        <!-- Your Course code here -->
+                        <p>
+                            Course Chart
+                        </p>
+                    </div>
+                    <div id="std-class" class="tab-content">
+                        <!-- Your Class code here -->
+                        <p>
+                            Class Chart
+                        </p>
+                    </div>
+                    <div id="exams" class="tab-content">
+                        <!-- Your Exams code here -->
+                        <p>
+                            Exams Chart
+                        </p>
+                    </div>
+                </div>
+                <aside id="notifications" class="message is-info column is-one-fifth box">
+                    <header class="message-header">
+                        <p>
+                            Notifications
+                        </p>
+                    </header>
+                    <div class="message-body">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                        beatae libero mollitia iure voluptates natus voluptatibus
+                        exercitationem sapiente voluptatem laudantium similique ipsum iste
+                        deleniti nulla velit rem quasi magnam, explicabo distinctio, nisi
+                        fugiat aliquid a perspiciatis? Minima, obcaecati nihil distinctio
+                        cumque repellat explicabo.
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const tabs = document.querySelectorAll(".tabs li");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach((tab) => {
+                tab.addEventListener("click", () => {
+                    tabs.forEach((item) => item.classList.remove("is-active"));
+                    tab.classList.add("is-active");
+
+                    const target = tab.dataset.tab;
+                    tabContents.forEach((content) => {
+                        content.classList.remove("is-active");
+                        if (content.id === target) {
+                            content.classList.add("is-active");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock content %}

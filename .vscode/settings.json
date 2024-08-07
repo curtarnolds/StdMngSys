@@ -1,0 +1,7 @@
+{
+	"[python]": {
+		"djlint.enableLinting": false,
+		"djlint.profile": "jinja",
+		"editor.defaultFormatter": "ms-python.autopep8"
+	}
+}

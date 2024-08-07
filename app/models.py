@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     role = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
 
+
 class Student(db.Model):
     """Define the Student Table."""
     id = db.Column(db.Integer, primary_key=True)
@@ -20,7 +21,8 @@ class Student(db.Model):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
-    student_index_number = db.Column(db.String(20), unique=True, nullable=False)
+    student_index_number = db.Column(
+        db.String(20), unique=True, nullable=False)
     gender = db.Column(db.String(10))
     address = db.Column(db.Text)
 
@@ -36,15 +38,18 @@ class Course(db.Model):
 class Enrollment(db.Model):
     """Define the Enrollment Table to handle Enrollments"""
     id = db.Column(db.Integer, primary_key=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey(
+        'student.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey(
+        'course.id'), nullable=False)
     enrollment_date = db.Column(db.Date, nullable=False)
 
 
 class Grade(db.Model):
     """Define the Grade Table to store student grades"""
     id = db.Column(db.Integer, primary_key=True)
-    enrollment_id = db.Column(db.Integer, db.ForeignKey('enrollment.id'), nullable=False)
+    enrollment_id = db.Column(db.Integer, db.ForeignKey(
+        'enrollment.id'), nullable=False)
     grade = db.Column(db.String(2))
 
 
@@ -66,7 +71,8 @@ class Report(db.Model):
 
 class Exam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey(
+        'course.id'), nullable=False)
     exam_name = db.Column(db.String(100), nullable=False)
     exam_date = db.Column(db.Date, nullable=False)
 
@@ -79,16 +85,20 @@ class Question(db.Model):
 
 class Answer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey(
+        'question.id'), nullable=False)
     answer_text = db.Column(db.Text, nullable=False)
     is_correct = db.Column(db.Boolean, nullable=False)
 
 
 class Response(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    student_id = db.Column(db.Integer, db.ForeignKey('student.id'), nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
-    selected_answer_id = db.Column(db.Integer, db.ForeignKey('answer.id'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey(
+        'student.id'), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey(
+        'question.id'), nullable=False)
+    selected_answer_id = db.Column(
+        db.Integer, db.ForeignKey('answer.id'), nullable=False)
     response_date = db.Column(db.DateTime, default=datetime.utcnow)
 
 

@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 
 bp = Blueprint('dashboard', __name__)
 
+
 @bp.route('/dashboard')
 @login_required
 def dashboard():
@@ -13,10 +14,12 @@ def dashboard():
     else:
         return redirect(url_for('main.index'))
 
+
 @bp.route('/dashboard/student')
 @login_required
 def student_dashboard():
     return render_template('dashboard/student.html')
+
 
 @bp.route('/dashboard/teacher')
 @login_required
