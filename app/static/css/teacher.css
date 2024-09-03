@@ -24,7 +24,7 @@
 }
 
 #students {
-	height: 100vh;
+	height: 80vh;
 	overflow: auto;
 }
 
@@ -51,7 +51,7 @@
 .marquee-content {
 	position: absolute;
 	top: 0;
-	animation: vertical-marquee 10s linear infinite;
+	animation: vertical-marquee 16s linear infinite;
 }
 
 @keyframes vertical-marquee {
@@ -60,13 +60,13 @@
 	}
 
 	100% {
-		top: -50%;
+		top: -100%;
 	}
 }
 
 /* Pause on Hover */
 .vertical-marquee:hover .marquee-content {
-	animation-play-state: paused;
+	animation: none;
 }
 
 .vertical-marquee:hover {

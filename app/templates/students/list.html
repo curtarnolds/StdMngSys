@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th>
-                            ID
+                            S/N
                         </th>
                         <th>
                             Index Number
@@ -34,7 +34,7 @@
                     {% for student in students %}
                         <tr>
                             <td>
-                                {{ student.id }}
+                                {{ loop.index }}
                             </td>
                             <td>
                                 {{ student.student_index_number }}
