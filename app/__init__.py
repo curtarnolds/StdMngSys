@@ -6,9 +6,16 @@ from flask_login import LoginManager
 from app.services import errors  # noqa
 from config import Config
 import secrets  # noqa
+from sqlalchemy.orm import DeclarativeBase
 
 
-db = SQLAlchemy()
+class Base(DeclarativeBase):
+    pass
+
+
+db = SQLAlchemy(model_class=Base)
+
+# db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 login.login_view = 'auth.login'
@@ -25,7 +32,8 @@ def create_app():
     # token = secrets.token_hex(16)
     # app.session['csrf_token'] = token
 
-    from app.routes import auth, students, courses, grades, notifications, exams, main, dashboard
+    from app.routes import auth, students, courses, grades, notifications, \
+        exams, main, dashboard
     app.register_blueprint(auth.bp)
     app.register_blueprint(students.bp)
     app.register_blueprint(courses.bp)
@@ -39,5 +47,5 @@ def create_app():
     # @app.errorhandler(404)
     # def wrong_login(e):
     #     return 'Test', 404
-
+    app.app_context().push()
     return app

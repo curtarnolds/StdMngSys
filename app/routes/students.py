@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required
 from app.services import student_service
 from app.models import Student
+from app.forms import CreateStudentForm
 
 
 bp = Blueprint('students', __name__)
@@ -24,17 +25,21 @@ def detail_student(id):
 @bp.route('/students/create', methods=['GET', 'POST'])
 @login_required
 def create_student():
-    if request.method == 'POST':
-        user_id = request.form['user_id']
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        date_of_birth = request.form['date_of_birth']
-        gender = request.form['gender']
-        address = request.form['address']
-        student_index_number = request.form['student_index_number']
-        student_service.create_student(user_id, first_name, last_name, date_of_birth, gender, address, student_index_number)
+    form = CreateStudentForm()
+    if form.validate_on_submit():
+        # Process the form data (e.g., save to database)
+        user_id = form.user_id.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+        date_of_birth = form.date_of_birth.data
+        gender = form.gender.data
+        address = form.address.data
+        student_index_number = form.student_index_number.data
+        student_service.create_student(user_id, first_name, last_name,
+                                       date_of_birth, gender, address,
+                                       student_index_number)
         return redirect(url_for('students.list_students'))
-    return render_template('students/create.html')
+    return render_template('students/create.html', form=form)
 
 
 @bp.route('/students/update/<int:id>', methods=['GET', 'POST'])
@@ -48,7 +53,9 @@ def update_student(id):
         gender = request.form['gender']
         address = request.form['address']
         student_index_number = request.form['student_index_number']
-        student_service.update_student(id, first_name, last_name, date_of_birth, gender, address, student_index_number)
+        student_service.update_student(
+            id, first_name, last_name, date_of_birth, gender, address,
+            student_index_number)
         return redirect(url_for('students.list_students'))
     return render_template('students/update.html', student=student)
 

@@ -1,17 +1,22 @@
 """Database Table Definitions"""
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from app import db, login
 
 
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):
     """Define the User Table."""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     role = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
+
+
+# class Person(UserMixin):
+#     """Define the Person class"""
+#     id = db.Column(db.Integer, primary_key=True)
+#     firstName = db.Column(db)
 
 
 class Student(db.Model):

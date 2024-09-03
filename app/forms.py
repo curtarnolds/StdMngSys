@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import RadioField, PasswordField, SubmitField, BooleanField, \
-    StringField
+    StringField, DateField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, \
     ValidationError
 from app.models import User
@@ -38,3 +38,16 @@ class UserLoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+class CreateStudentForm(FlaskForm):
+    user_id = StringField('User ID', validators=[DataRequired()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    date_of_birth = DateField('Date of Birth', validators=[DataRequired()])
+    gender = SelectField('Gender', choices=[
+                         ('male', 'Male'), ('female', 'Female')],
+                         default='male')
+    address = StringField('Address')
+    student_index_number = StringField(
+        'Student Index Number', validators=[DataRequired()])

@@ -1,9 +1,74 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
 
+.fill-container-p {
+	display: flex;
+	flex-flow: column
+}
+
+.fill-container {
+	flex: 1 1 auto;
+}
+
 .tab-content {
 	display: none;
 }
 
 .tab-content.is-active {
 	display: block;
+}
+
+#schedule,
+#notifications {
+	height: 70vh;
+	overflow-y: auto;
+}
+
+#students {
+	height: 100vh;
+	overflow: auto;
+}
+
+*::-webkit-scrollbar,
+*::-webkit-scrollbar-thumb {
+	width: 26px;
+	border-radius: 13px;
+	background-clip: padding-box;
+	border: 10px solid transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+	box-shadow: inset 0 0 0 10px;
+}
+
+/* Vertical Auto-Scrolling */
+.vertical-marquee {
+	height: 100%;
+	overflow-y: hidden;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.marquee-content {
+	position: absolute;
+	top: 0;
+	animation: vertical-marquee 10s linear infinite;
+}
+
+@keyframes vertical-marquee {
+	0% {
+		top: 0;
+	}
+
+	100% {
+		top: -50%;
+	}
+}
+
+/* Pause on Hover */
+.vertical-marquee:hover .marquee-content {
+	animation-play-state: paused;
+}
+
+.vertical-marquee:hover {
+	overflow-y: scroll;
 }

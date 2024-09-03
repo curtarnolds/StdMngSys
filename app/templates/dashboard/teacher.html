@@ -1,5 +1,43 @@
 {% extends "teacher_layout.html" %}
 {% block content %}
+    <div id="performance" class="column is-three-fifths box">
+        <nav class="panel">
+            <p class="panel-heading">
+                Performance
+            </p>
+        </nav>
+        <div class="tabs is-boxed">
+            <ul>
+                <li class="is-active" data-tab="course">
+                    <a>Course</a>
+                </li>
+                <li data-tab="std-class">
+                    <a>Class</a>
+                </li>
+                <li data-tab="exams">
+                    <a>Exams</a>
+                </li>
+            </ul>
+        </div>
+        <div id="course" class="tab-content is-active">
+            <!-- Your Course code here -->
+            <p>
+                Course Chart
+            </p>
+        </div>
+        <div id="std-class" class="tab-content">
+            <!-- Your Class code here -->
+            <p>
+                Class Chart
+            </p>
+        </div>
+        <div id="exams" class="tab-content">
+            <!-- Your Exams code here -->
+            <p>
+                Exams Chart
+            </p>
+        </div>
+    </div>
     <!--
     <div class="bulma-container mt-6" height="100vh">
         <div class="bulma-columns">
@@ -41,7 +79,7 @@
         </div>
     </div>
 -->
-    <section class="section">
+    {# <section class="section">
         <div class="container">
             <div class="columns">
                 <aside id="schedule" class="message is-dark column is-one-fifth box">
@@ -132,5 +170,5 @@
                 });
             });
         });
-    </script>
+</script> #}
 {% endblock content %}

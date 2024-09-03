@@ -98,8 +98,86 @@
                 </div>
             </div>
         </nav>
-        {% block content %}
-        {% endblock content %}
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <aside id="schedule"
+                           class="message is-dark column is-one-fifth box fill-container-p">
+                        <header class="message-header">
+                            <p>
+                                Schedule
+                            </p>
+                        </header>
+                        <div class="message-body fill-container">
+                            <div class="vertical-marquee">
+                                <div class="marquee-content">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    </p>
+                                    <p>
+                                        Dolorem
+                                        nulla et ut, totam in est repudiandae animi eveniet,
+                                        reprehenderit, dolor cupiditate velit minima.
+                                    </p>
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    </p>
+                                    <p>
+                                        Aliquam veniam alias accusantium, animi, deserunt adipisci nobis obcaecati repudiandae aperiam excepturi,
+                                    </p>
+                                    <p>
+                                        totam necessitatibus doloremque atque aut.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                    {% block content %}
+                    {% endblock content %}
+                    <aside id="notifications"
+                           class="message is-info column is-one-fifth box fill-container-p">
+                        <header class="message-header">
+                            <p>
+                                Notifications
+                            </p>
+                        </header>
+                        <div class="message-body fill-container">
+                            <div class="vertical-marquee">
+                                <div class="marquee-content">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+                                    beatae libero mollitia iure voluptates natus voluptatibus
+                                    exercitationem sapiente voluptatem laudantium similique ipsum iste
+                                    deleniti nulla velit rem quasi magnam, explicabo distinctio, nisi
+                                    fugiat aliquid a perspiciatis? Minima, obcaecati nihil distinctio
+                                    cumque repellat explicabo.
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const tabs = document.querySelectorAll(".tabs li");
+                const tabContents = document.querySelectorAll(".tab-content");
+
+                tabs.forEach((tab) => {
+                    tab.addEventListener("click", () => {
+                        tabs.forEach((item) => item.classList.remove("is-active"));
+                        tab.classList.add("is-active");
+
+                        const target = tab.dataset.tab;
+                        tabContents.forEach((content) => {
+                            content.classList.remove("is-active");
+                            if (content.id === target) {
+                                content.classList.add("is-active");
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
         <footer class="bulma-footer mt-auto py-3 bg-light">
             <div class="bulma-container bulma-has-text-centered">
                 <span class="text-muted bulma-is-centered">© 2024 Student Management System</span>
