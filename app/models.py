@@ -2,6 +2,8 @@
 from datetime import date, datetime, timezone
 from flask_login import UserMixin
 from app import db, login
+from sqlalchemy import Enum as EnumType
+from app.services.enums import SchoolYear, Semester, Sex, StaffRole, StudentStatus
 
 
 class Person(UserMixin):
@@ -12,7 +14,7 @@ class Person(UserMixin):
     middle_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
-    sex = db.Column(db.String(1), nullable=False)
+    sex = db.Column(EnumType(Sex), nullable=False)
     image = db.Column(db.String(100))
     password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -48,7 +50,7 @@ staff_course = db.Table('staff_course',
 class Staff(Person, db.Model):
     staff_id = db.Column(db.String(10), unique=True, nullable=False)
     date_employed = db.Column(db.DateTime, nullable=False, default=date.today)
-    role = db.Column(db.String(20), nullable=False)
+    role = db.Column(StaffRole, nullable=False)
 
     courses = db.relationship(
         'Course', secondary=staff_course, backref=db.backref(
@@ -60,7 +62,8 @@ class Student(Person, db.Model):
     index_number = db.Column(db.String(20), unique=True, nullable=False)
     date_admitted = db.Column(
         db.DateTime, nullable=False, default=datetime.now(timezone.utc))
-    year = db.Column(db.Integer, nullable=False)
+    status = db.Column(StudentStatus, nullable=False)
+    year = db.Column(SchoolYear, nullable=False)
     program_id = db.Column(db.Integer, db.ForeignKey("program.id"))
     hall_id = db.Column(db.Integer, db.ForeignKey("hall.id"))
 
@@ -71,6 +74,7 @@ class Student(Person, db.Model):
 
 
 class Department(db.Model):
+    """Define the Department Table."""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     head = db.Column(db.Integer, db.ForeignKey("staff.id"))
@@ -89,11 +93,12 @@ program_courses = db.Table('program_courses',
 
 
 class Program(db.Model):
+    """Define the Program Table."""
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     description = db.Column(db.Text)
     department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
-    duration = db.Column(db.Integer, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)  # in semesters
     courses = db.relationship(
         "Course", secondary=program_courses, backref=db.backref("programs"))
     students = db.relationship("Student", backref="program", lazy=True)
@@ -107,8 +112,8 @@ class Course(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey(
         'department.id'), nullable=False)
     credits = db.Column(db.Integer, nullable=False)
-    year = db.Column(db.Integer, nullable=False)
-    semester = db.Column(db.Integer, nullable=False)
+    year = db.Column(SchoolYear, nullable=False)
+    semester = db.Column(Semester, nullable=False)
     enrollment = db.relationship("Enrollment", backref='course')
 
 
@@ -153,22 +158,6 @@ class Grade(db.Model):
         return self.quiz + self.assignment + self.midsem + self.exam
 
 
-class Notification(db.Model):
-    """Define the Notification table to store user notifications"""
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    message = db.Column(db.Text)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-
-class Report(db.Model):
-    """Define the Report table to store student reports"""
-    id = db.Column(db.Integer, primary_key=True)
-    report_type = db.Column(db.String(50), nullable=False)
-    generated_at = db.Column(db.DateTime, default=datetime.utcnow)
-    data = db.Column(db.JSON)
-
-
 class Exam(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     course_id = db.Column(db.Integer, db.ForeignKey(
@@ -211,6 +200,23 @@ class Feedback(db.Model):
         db.Integer, db.ForeignKey('person.id'), nullable=False)
     recipient_id = db.Column(
         db.Integer, db.ForeignKey('person.id'), nullable=False)
+
+
+class Notification(db.Model):
+    """Define the Notification table to store user notifications"""
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
+    message = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+
+
+class Report(db.Model):
+    """Define the Report table to store student reports"""
+    id = db.Column(db.Integer, primary_key=True)
+    report_type = db.Column(db.String(50), nullable=False)
+    generated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    data = db.Column(db.JSON)
 
 
 @login.user_loader
