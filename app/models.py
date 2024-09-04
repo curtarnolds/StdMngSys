@@ -1,35 +1,73 @@
 """Database Table Definitions"""
-from datetime import datetime
+from datetime import date, datetime, timezone
 from flask_login import UserMixin
 from app import db, login
 
 
-class User(db.Model, UserMixin):
+class Person(UserMixin):
     """Define the User Table."""
+    __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
-    role = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-
-
-# class Person(UserMixin):
-#     """Define the Person class"""
-#     id = db.Column(db.Integer, primary_key=True)
-#     firstName = db.Column(db)
-
-
-class Student(db.Model):
-    """Define the Student Table."""
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
+    middle_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
-    student_index_number = db.Column(
-        db.String(20), unique=True, nullable=False)
-    gender = db.Column(db.String(10))
-    address = db.Column(db.Text)
+    sex = db.Column(db.String(1), nullable=False)
+    image = db.Column(db.String(100))
+    password_hash = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    address = db.Column(db.Text, nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
+
+    # relationships
+    sent_feedbacks = db.relationship(
+        "Feedback", foreign_keys="Feeback.author_id", backref='author',
+        lazy=True)
+    received_feedbacks = db.relationship(
+        "Feedback", foreign_keys="Feeback.recipient_id", backref='recipient',
+        lazy=True)
+
+
+# Association table for the many-to-many relationship
+student_course = db.Table('student_course',
+                          db.Column('student_id', db.Integer, db.ForeignKey(
+                              'student.id'), primary_key=True),
+                          db.Column('course_id', db.Integer, db.ForeignKey(
+                              'course.id'), primary_key=True)
+                          )
+
+
+staff_course = db.Table('staff_course',
+                        db.Column('staff_id', db.Integer, db.ForeignKey(
+                            'staff.id'), primary_key=True),
+                        db.Column('course_id', db.Integer, db.ForeignKey(
+                            'course.id'), primary_key=True)
+                        )
+
+
+class Staff(Person, db.Model):
+    staff_id = db.Column(db.String(10), unique=True, nullable=False)
+    date_employed = db.Column(db.DateTime, nullable=False, default=date.today)
+    role = db.Column(db.String(20), nullable=False)
+
+    courses = db.relationship(
+        'Course', secondary=staff_course, backref=db.backref(
+            'staff', lazy='dynamic'))
+
+
+class Student(Person, db.Model):
+    """Define the Student Table."""
+    index_number = db.Column(db.String(20), unique=True, nullable=False)
+    date_admitted = db.Column(
+        db.DateTime, nullable=False, default=datetime.now(timezone.utc))
+    year = db.Column(db.Integer, nullable=False)
+    program_id = db.Column(db.Integer, db.ForeignKey("program.id"))
+    hall_id = db.Column(db.Integer, db.ForeignKey("hall.id"))
+
+    # Define the relationship to Course, linking it via the association table
+    courses = db.relationship(
+        'Course', secondary=student_course, backref=db.backref(
+            'students', lazy='dynamic'))
 
 
 class Department(db.Model):
@@ -39,6 +77,26 @@ class Department(db.Model):
     programs = db.relationship('Program', backref='department')
     students = db.relationship('Student', backref='department')
     members = db.relationship('Staff', backref='department')
+    courses = db.relationship('Course', backref='department')
+
+
+program_courses = db.Table('program_courses',
+                           db.Column('program_id', db.Integer, db.ForeignKey(
+                               'program.id'), primary_key=True),
+                           db.Column('course_id', db.Integer, db.ForeignKey(
+                               'course.id'), primary_key=True)
+                           )
+
+
+class Program(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text)
+    department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
+    duration = db.Column(db.Integer, nullable=False)
+    courses = db.relationship(
+        "Course", secondary=program_courses, backref=db.backref("programs"))
+    students = db.relationship("Student", backref="program", lazy=True)
 
 
 class Course(db.Model):
@@ -46,10 +104,12 @@ class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     code = db.Column(db.String(10), nullable=False)
-    # department = db.Column(db.Integer, db.ForeignKey(
-    #     'department.id', name='fk_course_department'), nullable=False)
+    department_id = db.Column(db.Integer, db.ForeignKey(
+        'department.id'), nullable=False)
     credits = db.Column(db.Integer, nullable=False)
-    year = db.Column(db.String(4), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    semester = db.Column(db.Integer, nullable=False)
+    enrollment = db.relationship("Enrollment", backref='course')
 
 
 class Enrollment(db.Model):
@@ -61,27 +121,33 @@ class Enrollment(db.Model):
         'course.id'), nullable=False)
     enrollment_date = db.Column(db.Date, nullable=False)
 
+    student = db.relationship(
+        "Student", backref=db.backref('enrollments', lazy=True))
+    course = db.relationship(
+        "Course", backref=db.backref('enrollments', lazy=True))
+
+
+class Hall(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    students = db.relationship("Student", backref="hall", lazy=True)
+
 
 class Grade(db.Model):
     """Define the Grade Table to store student grades"""
     id = db.Column(db.Integer, primary_key=True)
-    course_id = db.Column(db.Integer, db.ForeignKey(
-        'course.id', name='fk_grade_course'), nullable=False)
-    student_id = db.Column(db.Integer, db.ForeignKey(
-        'student.id', name='fk_grade_student'), nullable=False)
-    year = db.Column(db.Date, nullable=False)
-    semester = db.Column(db.Integer, nullable=False)
-    quiz = db.Column(db.Integer, default=0)
-    assignment = db.Column(db.Integer, default=0)
-    midsem = db.Column(db.Integer, default=0)
-    exam = db.Column(db.Integer, default=0)
     enrollment_id = db.Column(db.Integer, db.ForeignKey(
-        'enrollment.id', name='fk_grade_enrollment'), nullable=False)
+        'enrollment.id'), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    semester = db.Column(db.Integer, nullable=False)
+    quiz = db.Column(db.Numeric(5, 2), default=0)
+    assignment = db.Column(db.Numeric(5, 2), default=0)
+    midsem = db.Column(db.Numeric(5, 2), default=0)
+    exam = db.Column(db.Numeric(5, 2), default=0)
     grade = db.Column(db.String(2))
 
-    course = db.relationship("Course", backref=db.backref('grades'), lazy=True)
-    student = db.relationship(
-        "Student", backref=db.backref('grades'), lazy=True)
+    enrollment = db.relationship(
+        "Enrollment", backref=db.backref('grades', lazy=True))
 
     def get_total(self):
         return self.quiz + self.assignment + self.midsem + self.exam
@@ -136,6 +202,17 @@ class Response(db.Model):
     response_date = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+class Feedback(db.Model):
+    """Define the Feedback table to store feedback"""
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    author_id = db.Column(
+        db.Integer, db.ForeignKey('person.id'), nullable=False)
+    recipient_id = db.Column(
+        db.Integer, db.ForeignKey('person.id'), nullable=False)
+
+
 @login.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Person.query.get(int(id))
