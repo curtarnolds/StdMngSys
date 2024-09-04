@@ -32,12 +32,24 @@ class Student(db.Model):
     address = db.Column(db.Text)
 
 
+class Department(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    head = db.Column(db.Integer, db.ForeignKey("staff.id"))
+    programs = db.relationship('Program', backref='department')
+    students = db.relationship('Student', backref='department')
+    members = db.relationship('Staff', backref='department')
+
+
 class Course(db.Model):
     """Define the Course Table."""
     id = db.Column(db.Integer, primary_key=True)
-    course_name = db.Column(db.String(100), nullable=False)
-    course_description = db.Column(db.Text)
+    name = db.Column(db.String(100), nullable=False)
+    code = db.Column(db.String(10), nullable=False)
+    # department = db.Column(db.Integer, db.ForeignKey(
+    #     'department.id', name='fk_course_department'), nullable=False)
     credits = db.Column(db.Integer, nullable=False)
+    year = db.Column(db.String(4), nullable=False)
 
 
 class Enrollment(db.Model):
@@ -53,9 +65,26 @@ class Enrollment(db.Model):
 class Grade(db.Model):
     """Define the Grade Table to store student grades"""
     id = db.Column(db.Integer, primary_key=True)
+    course_id = db.Column(db.Integer, db.ForeignKey(
+        'course.id', name='fk_grade_course'), nullable=False)
+    student_id = db.Column(db.Integer, db.ForeignKey(
+        'student.id', name='fk_grade_student'), nullable=False)
+    year = db.Column(db.Date, nullable=False)
+    semester = db.Column(db.Integer, nullable=False)
+    quiz = db.Column(db.Integer, default=0)
+    assignment = db.Column(db.Integer, default=0)
+    midsem = db.Column(db.Integer, default=0)
+    exam = db.Column(db.Integer, default=0)
     enrollment_id = db.Column(db.Integer, db.ForeignKey(
-        'enrollment.id'), nullable=False)
+        'enrollment.id', name='fk_grade_enrollment'), nullable=False)
     grade = db.Column(db.String(2))
+
+    course = db.relationship("Course", backref=db.backref('grades'), lazy=True)
+    student = db.relationship(
+        "Student", backref=db.backref('grades'), lazy=True)
+
+    def get_total(self):
+        return self.quiz + self.assignment + self.midsem + self.exam
 
 
 class Notification(db.Model):

@@ -5,17 +5,20 @@ from app.models import Grade
 
 bp = Blueprint('grades', __name__)
 
+
 @bp.route('/grades')
 @login_required
 def list_grades():
     grades = Grade.query.all()
     return render_template('grades/list.html', grades=grades)
 
+
 @bp.route('/grades/<int:id>')
 @login_required
 def detail_grade(id):
     grade = grade_service.get_grade(id)
     return render_template('grades/detail.html', grade=grade)
+
 
 @bp.route('/grades/create', methods=['GET', 'POST'])
 @login_required
@@ -27,6 +30,7 @@ def create_grade():
         return redirect(url_for('grades.list_grades'))
     return render_template('grades/create.html')
 
+
 @bp.route('/grades/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def update_grade(id):
@@ -36,6 +40,7 @@ def update_grade(id):
         grade_service.update_grade(id, new_grade)
         return redirect(url_for('grades.list_grades'))
     return render_template('grades/update.html', grade=grade)
+
 
 @bp.route('/grades/delete/<int:id>', methods=['POST'])
 @login_required
