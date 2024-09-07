@@ -37,14 +37,14 @@ Enums (imported from app.services.enums):
 - StudentStatus: Enum representing the status of a student.
 """
 
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 
 from flask_login import UserMixin
 from sqlalchemy import Enum as EnumType
 
 from app import db, login
 from app.services.enums import ExamType, QuestionType, SchoolYear, Semester, \
-    Sex, StaffRole, StudentStatus
+    Sex, UserRole, StudentStatus
 
 
 class Person(UserMixin):
@@ -71,7 +71,7 @@ class Person(UserMixin):
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(50), nullable=False)
-    middle_name = db.Column(db.String(50), nullable=False)
+    middle_name = db.Column(db.String(50))
     last_name = db.Column(db.String(50), nullable=False)
     date_of_birth = db.Column(db.Date, nullable=False)
     sex = db.Column(EnumType(Sex), nullable=False)
@@ -79,6 +79,7 @@ class Person(UserMixin):
     password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     address = db.Column(db.Text, nullable=False)
+    role = db.Column(EnumType(UserRole), nullable=False)
     department_id = db.Column(db.Integer, db.ForeignKey("department.id"))
 
     # relationships
@@ -88,6 +89,23 @@ class Person(UserMixin):
     received_feedbacks = db.relationship(
         "Feedback", foreign_keys="Feedback.recipient_id", backref='recipient',
         lazy=True)
+
+
+# Association table for the many-to-many relationship
+student_course = db.Table('student_course',
+                          db.Column('student_id', db.Integer, db.ForeignKey(
+                              'student.id'), primary_key=True),
+                          db.Column('course_id', db.Integer, db.ForeignKey(
+                              'course.id'), primary_key=True)
+                          )
+
+
+staff_course = db.Table('staff_course',
+                        db.Column('staff_id', db.Integer, db.ForeignKey(
+                            'staff.id'), primary_key=True),
+                        db.Column('course_id', db.Integer, db.ForeignKey(
+                            'course.id'), primary_key=True)
+                        )
 
 
 class Staff(Person, db.Model):
@@ -101,9 +119,8 @@ class Staff(Person, db.Model):
     - courses (relationship): Many-to-many relationship with courses.
     """
     staff_id = db.Column(db.String(10), unique=True, nullable=False)
-    date_employed = db.Column(db.DateTime, nullable=False, default=date.today)
-    role = db.Column(EnumType(StaffRole), nullable=False)
-
+    date_employed = db.Column(
+        db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     courses = db.relationship(
         'Course', secondary='staff_course', backref=db.backref(
             'staff', lazy='dynamic'))

@@ -26,18 +26,27 @@ Example usage:
 """
 
 
-class StaffRole(Enum):
+class UserRole(Enum):
     """
-    Enum class representing the roles of staff members.
+    Enum class representing the roles of university members.
 
     Attributes:
-        TEACHER (str): Represents a teacher role.
+        STUDENT(str): Represents a student role.
         ADMIN (str): Represents an administrative role.
+        LECTURER (str): Represents a lecturer role.
+        REGISTRAR (str): Represents a registrar role.
         STAFF (str): Represents a general staff role.
+        SYSADMIN (str): Represents a system administrator role.
+        ALUMNI (str): Represents an alumni role.
+
     """
-    TEACHER = 'Teacher'
-    ADMIN = 'Admin'
+    STUDENT = 'Student'
+    ADMIN = 'Administrator'
+    LECTURER = 'Lecturer'
+    REGISTRAR = 'Registrar'
     STAFF = 'Staff'
+    SYSADMIN = "SysAdmin"
+    ALUMNI = 'Alumni'
 
 
 class Sex(Enum):
@@ -64,10 +73,10 @@ class SchoolYear(Enum):
         JUNIOR (str): Represents the junior year (3rd year).
         SENIOR (str): Represents the senior year (4th year).
     """
-    FRESHMAN = "freshman"
-    SOPHOMORE = "sophomore"
-    JUNIOR = "junior"
-    SENIOR = "senior"
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
 
 
 class Semester(Enum):
